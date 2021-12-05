@@ -13,7 +13,6 @@ func SignUp(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
 		return
 	}
-	store.Users = append(store.Users, user)
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "Signed up successfully",
 		"jwt": "12345",
@@ -32,7 +31,8 @@ func SignIn(ctx *gin.Context) {
 				"msg": "Signed in successfully",
 				"jwt": "1234124",
 			})
+			return
 		}
 	}
-	ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": "Sign in failed"})
+	ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": "Sign in failed."})
 }

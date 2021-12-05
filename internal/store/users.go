@@ -5,4 +5,9 @@ type User struct {
 	Password string `binding:"required,min=7,max=32"`
 }
 
-var Users []*User
+var Users = []User{
+	User{
+		Username: "testId",
+		Password: "testPassword",
+	},
+}
