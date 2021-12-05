@@ -34,4 +34,5 @@ func SignIn(ctx *gin.Context) {
 			})
 		}
 	}
+	ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"err": "Sign in failed"})
 }

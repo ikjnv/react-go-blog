@@ -1,6 +1,8 @@
 package server
 
-import "ikjnv/react-go-blog/internal/router"
+import (
+	"ikjnv/react-go-blog/internal/router"
+)
 
 func Start() {
 	r := router.SetRouter()
