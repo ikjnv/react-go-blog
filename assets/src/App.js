@@ -1,24 +1,14 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 
 function Authenticate() {
   const [user, setUser] = useState({ Username: '', Password: '' });
+
 
   const handleChange = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value
     })
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value
-    });
-
-    createUser(user);
-    console.log('Submitting...', user);
   };
 
   const createUser = async (data) => {
@@ -32,6 +22,16 @@ function Authenticate() {
 
     return await res.json();
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    });
+    createUser(user)
+      .then(res => console.log('response came', res));
+  };
 
   return (
     <>
