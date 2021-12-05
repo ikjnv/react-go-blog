@@ -1,11 +1,15 @@
 package router
 
 import (
+	"ikjnv/react-go-blog/internal/user"
+
 	"github.com/gin-gonic/gin"
 )
 
 func SetRouter() *gin.Engine {
 	router := gin.Default()
+
+	router.RedirectTrailingSlash = true
 
 	api := router.Group("/api/v1")
 	{
@@ -13,7 +17,9 @@ func SetRouter() *gin.Engine {
 			ctx.JSON(200, gin.H{"msg": "Hello, World!"})
 		})
 
-		// sign up and sign in go below
+		api.POST("/signup", user.SignUp)
+
+		api.POST("/signin", user.SignIn)
 	}
 
 	return router
