@@ -26,7 +26,13 @@ func SignUp(ctx *gin.Context) {
 }
 
 func SignIn(ctx *gin.Context) {
-	user := ctx.MustGet(gin.BindKey).(*store.User)
+	user := new(store.User)
+
+	if err := ctx.Bind(user); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		return
+	}
+
 	user, err := store.Authenticate(user.Username, user.Password)
 
 	if err != nil {

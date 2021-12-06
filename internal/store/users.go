@@ -2,7 +2,6 @@ package store
 
 import (
 	"crypto/rand"
-	"errors"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -45,10 +44,10 @@ func Authenticate(username, password string) (*User, error) {
 		"username = ?", username).Select(); err != nil {
 		return nil, err
 	}
-	if password != user.Password {
-		return nil, errors.New("Password not valid.")
+	salted := append([]byte(password), user.Salt...)
+	if err := bcrypt.CompareHashAndPassword(user.HashedPassword, salted); err != nil {
+		return nil, err
 	}
-
 	return user, nil
 }
 
