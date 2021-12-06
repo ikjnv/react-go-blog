@@ -14,7 +14,7 @@ function Authenticate() {
   };
 
   const createUser = async (data: any) => {
-    const res = await fetch('http://localhost:8080/api/v1/signup', {
+    const res = await fetch('http://localhost:8080/api/v1/signin', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

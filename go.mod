@@ -3,10 +3,13 @@ module ikjnv/react-go-blog
 go 1.17
 
 require (
+	github.com/gin-gonic/gin v1.7.7
+	github.com/go-pg/migrations/v8 v8.1.0
+	github.com/go-pg/pg/v10 v10.10.6
+)
+
+require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/contrib v0.0.0-20201101042839-6a891bf89f19 // indirect
-	github.com/gin-gonic/gin v1.7.7 // indirect
-	github.com/go-pg/pg/v10 v10.10.6 // indirect
 	github.com/go-pg/zerochecker v0.2.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
@@ -24,8 +27,9 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.3.4 // indirect
 	github.com/vmihailenco/tagparser v0.1.2 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
+	golang.org/x/crypto v0.0.0-20211202192323-5770296d904e // indirect
 	golang.org/x/sys v0.0.0-20210923061019-b8560ed6a9b7 // indirect
+	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 	mellium.im/sasl v0.2.1 // indirect
 )
