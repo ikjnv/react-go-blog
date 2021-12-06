@@ -1,8 +1,6 @@
-package router
+package server
 
 import (
-	"ikjnv/react-go-blog/internal/user"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -32,8 +30,8 @@ func SetRouter() *gin.Engine {
 
 	api := router.Group("/api/v1")
 	{
-		api.POST("/signup", user.SignUp)
-		api.POST("/signin", user.SignIn)
+		api.POST("/signup", SignUp)
+		api.POST("/signin", SignIn)
 	}
 
 	return router

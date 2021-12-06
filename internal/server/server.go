@@ -1,15 +1,16 @@
 package server
 
 import (
+	"ikjnv/react-go-blog/internal/conf"
 	"ikjnv/react-go-blog/internal/database"
-	"ikjnv/react-go-blog/internal/router"
 	"ikjnv/react-go-blog/internal/store"
 )
 
-func Start() {
+func Start(cfg conf.Config) {
+	store.SetDBConnection(database.NewDBOptions(cfg))
 
-	store.SetDBConnection(database.NewDBOptions())
+	router := SetRouter()
 
-	r := router.SetRouter()
-	r.Run(":8080")
+	// Start listening and serving requests
+	router.Run(":8080")
 }

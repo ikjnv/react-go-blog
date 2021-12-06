@@ -1,4 +1,4 @@
-package user
+package server
 
 import (
 	"ikjnv/react-go-blog/internal/store"
@@ -26,13 +26,7 @@ func SignUp(ctx *gin.Context) {
 }
 
 func SignIn(ctx *gin.Context) {
-	user := new(store.User)
-
-	if err := ctx.Bind(user); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
-		return
-	}
-
+	user := ctx.MustGet(gin.BindKey).(*store.User)
 	user, err := store.Authenticate(user.Username, user.Password)
 
 	if err != nil {

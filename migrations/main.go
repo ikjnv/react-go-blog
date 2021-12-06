@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"ikjnv/react-go-blog/internal/conf"
 	"ikjnv/react-go-blog/internal/database"
 	"ikjnv/react-go-blog/internal/store"
 	"os"
@@ -27,7 +28,7 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	store.SetDBConnection(database.NewDBOptions())
+	store.SetDBConnection(database.NewDBOptions(conf.NewConfig()))
 	db := store.GetDBConnection()
 
 	oldVersion, newVersion, err := migrations.Run(db, flag.Args()...)
