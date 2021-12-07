@@ -2,6 +2,7 @@ package store
 
 import (
 	"crypto/rand"
+	"fmt"
 	"time"
 
 	"github.com/rs/zerolog/log"
@@ -59,4 +60,15 @@ func GenerateSalt() ([]byte, error) {
 		return nil, err
 	}
 	return salt, nil
+}
+
+func FetchUser(id int) (*User, error) {
+	user := new(User)
+	user.ID = id
+	err := db.Model(user).Returning("*").WherePK().Select()
+	if err != nil {
+		fmt.Println("Error fetching user")
+		return nil, err
+	}
+	return user, nil
 }
