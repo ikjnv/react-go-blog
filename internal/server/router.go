@@ -1,6 +1,8 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,6 +35,17 @@ func SetRouter() *gin.Engine {
 		api.POST("/signup", SignUp)
 		api.POST("/signin", SignIn)
 	}
+
+	authorized := api.Group("/")
+	authorized.Use(authorization)
+	{
+		authorized.GET("/posts", indexPosts)
+		authorized.POST("/posts", createPost)
+		authorized.PUT("/posts", updatePost)
+		authorized.DELETE("/posts/:id", deletePost)
+	}
+
+	router.NoRoute(func(ctx *gin.Context) { ctx.JSON(http.StatusNotFound, gin.H{}) })
 
 	return router
 }
