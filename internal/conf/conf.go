@@ -14,6 +14,7 @@ const (
 	dbNameKey     = "RGB_DB_NAME"
 	dbUserKey     = "RGB_DB_USER"
 	dbPasswordKey = "RGB_DB_PASSWORD"
+	jwtSecretKey  = "RGB_JWT_SECRET"
 )
 
 type Config struct {
@@ -24,46 +25,52 @@ type Config struct {
 	DbName     string
 	DbUser     string
 	DbPassword string
+	JwtSecret  string
 }
 
 func NewConfig() Config {
 	host, ok := os.LookupEnv(hostKey)
 	if !ok || host == "" {
-		logAndPanic(hostKey)
+		log.Panic(hostKey)
 	}
 
 	port, ok := os.LookupEnv(portKey)
 	if !ok || port == "" {
 		if _, err := strconv.Atoi(port); err != nil {
-			logAndPanic(portKey)
+			log.Panic(portKey)
 		}
 	}
 
 	dbHost, ok := os.LookupEnv(dbHostKey)
 	if !ok || dbHost == "" {
-		logAndPanic(dbHostKey)
+		log.Panic(dbHostKey)
 	}
 
 	dbPort, ok := os.LookupEnv(dbPortKey)
 	if !ok || dbPort == "" {
 		if _, err := strconv.Atoi(dbPort); err != nil {
-			logAndPanic(dbPortKey)
+			log.Panic(dbPortKey)
 		}
 	}
 
 	dbName, ok := os.LookupEnv(dbNameKey)
 	if !ok || dbName == "" {
-		logAndPanic(dbNameKey)
+		log.Panic(dbNameKey)
 	}
 
 	dbUser, ok := os.LookupEnv(dbUserKey)
 	if !ok || dbUser == "" {
-		logAndPanic(dbUserKey)
+		log.Panic(dbUserKey)
 	}
 
 	dbPassword, ok := os.LookupEnv(dbPasswordKey)
 	if !ok || dbPassword == "" {
-		logAndPanic(dbPasswordKey)
+		log.Panic(dbPasswordKey)
+	}
+
+	jwtSecret, ok := os.LookupEnv(jwtSecretKey)
+	if !ok || jwtSecret == "" {
+		log.Panic(jwtSecretKey)
 	}
 
 	return Config{
@@ -74,10 +81,6 @@ func NewConfig() Config {
 		DbName:     dbName,
 		DbUser:     dbUser,
 		DbPassword: dbPassword,
+		JwtSecret:  jwtSecret,
 	}
-}
-
-func logAndPanic(envVar string) {
-	log.Println("ENV variable not set or value not valid: ", envVar)
-	panic(envVar)
 }

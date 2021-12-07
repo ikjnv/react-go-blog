@@ -32,7 +32,7 @@ function Authenticate() {
     });
     createUser(user)
       .then((res) => {
-        if ('err' in res) {
+        if ('error' in res) {
           setServerError(res.err);
         }
         console.log('response', res);

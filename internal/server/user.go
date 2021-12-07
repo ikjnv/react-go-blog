@@ -11,7 +11,7 @@ func SignUp(ctx *gin.Context) {
 	user := new(store.User)
 
 	if err := ctx.Bind(user); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -21,7 +21,7 @@ func SignUp(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "Signed up successfully",
-		"jwt": "123456789",
+		"jwt": generateJWT(user),
 	})
 }
 
@@ -29,7 +29,7 @@ func SignIn(ctx *gin.Context) {
 	user := new(store.User)
 
 	if err := ctx.Bind(user); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"err": err.Error()})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -42,6 +42,6 @@ func SignIn(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg": "Signed in successfully",
-		"jwt": "123456789",
+		"jwt": generateJWT(user),
 	})
 }
