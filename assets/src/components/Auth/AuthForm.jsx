@@ -7,7 +7,7 @@ export default function AuthForm() {
 
 	const navigate = useNavigate();
 	const context = useContext(AuthContext);
-	const [loggingIn, setLoggingIn] = useState(false);
+	const [loggingIn, setLoggingIn] = useState(true);
 	const [errors, setErrors] = useState({});
 
 	const usernameRef = useRef();
@@ -43,10 +43,10 @@ export default function AuthForm() {
 			.then(res => {
 				console.log('response came', res)
 				context.setUsername(res.username);
+				context.login(res.jwt)
 				navigate('/', { replace: true })
 			})
 			.catch(err => console.error('Error:', err));
-
 	}
 
 	const title = loggingIn ? 'Sign in' : 'Sign up';
@@ -58,7 +58,7 @@ export default function AuthForm() {
 			<form onSubmit={submitHandler}>
 				<input type="text" ref={usernameRef} />
 				<input type="password" ref={passwordRef} />
-				<button onClick={switchMode}>{title}</button>
+				<button>{title}</button>
 			</form>
 
 		</div>
