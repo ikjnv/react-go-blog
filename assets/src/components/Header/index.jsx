@@ -1,12 +1,18 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AuthContext from '../../store/authContext';
 
 export default function Header() {
+	const navigate = useNavigate();
 	const context = useContext(AuthContext);
 
 	console.log('header context', context);
+
+	const handleLogout = () => {
+		context.logout();
+		navigate('/', { replace: true });
+	}
 
 	return (
 		<ul>
@@ -18,9 +24,12 @@ export default function Header() {
 					<li>
 						<Link to="/posts">Posts</Link>
 					</li>
+					<li>
+						<Link to="/create">Create post</Link>
+					</li>
 					<li>{context.username}</li>
 					<li>
-						<button onClick={context.logout}>
+						<button onClick={handleLogout}>
 							Log out
 						</button>
 					</li>
