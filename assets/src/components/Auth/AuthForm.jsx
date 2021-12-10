@@ -1,7 +1,6 @@
 import { useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../store/authContext';
-import Header from '../Header';
 
 export default function AuthForm() {
 
@@ -41,7 +40,6 @@ export default function AuthForm() {
 		)
 			.then(res => res.json())
 			.then(res => {
-				console.log('response came', res)
 				context.setUsername(res.username);
 				context.login(res.jwt)
 				navigate('/', { replace: true })
@@ -53,7 +51,6 @@ export default function AuthForm() {
 
 	return (
 		<div>
-			<Header />
 			<h4>{title}</h4>
 			<form onSubmit={submitHandler}>
 				<input type="text" ref={usernameRef} />

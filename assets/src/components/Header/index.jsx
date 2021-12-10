@@ -5,6 +5,9 @@ import AuthContext from '../../store/authContext';
 
 export default function Header() {
 	const context = useContext(AuthContext);
+
+	console.log('header context', context);
+
 	return (
 		<ul>
 			<li>
