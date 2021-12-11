@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import AuthContext from '../../store/authContext';
+import { Navbar, Auth } from './styled';
 
 export default function Header() {
 	const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function Header() {
 	}
 
 	return (
-		<ul>
+		<Navbar>
 			<li>
 				<Link to="/">Home</Link>
 			</li>
@@ -27,20 +28,22 @@ export default function Header() {
 					<li>
 						<Link to="/create">Create post</Link>
 					</li>
-					<li>{context.username}</li>
-					<li>
-						<button onClick={handleLogout}>
-							Log out
-						</button>
-					</li>
+					<Auth>
+						<li>{context.username}</li>
+						<li>
+							<button onClick={handleLogout}>
+								Log out
+							</button>
+						</li>
+					</Auth>
 				</>
 			) : (
-				<>
+				<Auth>
 					<li>
 						<Link to="/auth">Sign in</Link>
 					</li>
-				</>
+				</Auth>
 			)}
-		</ul>
+		</Navbar>
 	)
 };
