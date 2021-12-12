@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const FormBlock = styled.div`
-  border: 2px solid red;
   margin-left: auto;
   margin-right: auto;
 
@@ -14,7 +13,6 @@ export const Form = styled.form`
   width: 60%;
   margin-left: auto;
   margin-right: auto;
-  border: 2px solid blue;
   padding-top: 3%;
   padding-bottom: 2%;
   input {

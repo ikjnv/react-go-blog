@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../store/authContext';
 import { Link } from 'react-router-dom';
 import { FormBlock, Form } from './styled';
+import Errors from '../Errors/Errors';
 
 export default function AuthForm() {
 
@@ -28,29 +29,44 @@ export default function AuthForm() {
 		const username = usernameRef.current.value;
 		const password = passwordRef.current.value;
 
-		await fetch(endpoint,
-			{
-				method: 'POST',
-				body: JSON.stringify({
-					Username: username,
-					Password: password
-				}),
-				headers: {
-					'Content-Type': 'application/json'
+		try {
+			const response = await fetch(endpoint,
+				{
+					method: 'POST',
+					body: JSON.stringify({
+						Username: username,
+						Password: password,
+					}),
+					headers: {
+						'Content-Type': 'application/json',
+					},
 				}
+			);
+			const data = await response.json();
+			if (!response.ok) {
+				let errorText = loggingIn ? 'Login failed' : 'Sign up failed';
+				if (!data.hasOwnProperty('error')) {
+					throw new Error(errorText);
+				}
+				if ((typeof data['error'] === 'string')) {
+					setErrors({'unknown': data['error']})
+				} else {
+					setErrors(data['error']);
+				} 
+			} else {
+				context.login(data.jwt);
+				context.setUsername(data.username);
+				navigate('/', { replace: true });
 			}
-		)
-			.then(res => res.json())
-			.then(res => {
-				context.setUsername(res.username);
-				context.login(res.jwt)
-				navigate('/', { replace: true })
-			})
-			.catch(err => console.error('Error:', err));
+		} catch (error) {
+			setErrors({"error": error.message});
+		}
+
 	}
 
 	const title = loggingIn ? 'Sign in' : 'Sign up';
 	const suggestBtn = loggingIn ? 'Create new account' : 'Already have an account?'
+	const errorContent = Object.keys(errors).length === 0 ? null : Errors(errors);
 
 	return (
 		<FormBlock>
@@ -69,6 +85,7 @@ export default function AuthForm() {
 					<Link to="" onClick={switchMode}>{suggestBtn}</Link>
 				</div>
 			</Form>
+			{errorContent}
 		</FormBlock>
 	);
 };
