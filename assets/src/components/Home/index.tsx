@@ -1,7 +1,9 @@
+import { HomeBlock } from "./styled";
+
 export default function Home() {
 	return (
-		<div>
+		<HomeBlock>
 			<h4>Home Page</h4>
-		</div>
+		</HomeBlock>
 	);
 };

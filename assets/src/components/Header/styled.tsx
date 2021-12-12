@@ -1,14 +1,29 @@
 import styled from "styled-components";
 
 export const Navbar = styled.ul`
-  border: 1px solid black;
-
-  display: inline-flex;
-  width: 100%;
+  background: #33A5FF;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
 
   li {
     list-style: none;
-    margin: 2%;
+    margin: 1%;
+    font-weight: bold;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: black;
+  }
+
+  #usrname {
+    font-weight: normal;
   }
 `
 
@@ -23,5 +38,9 @@ export const Auth = styled.div`
   li {
     margin-left: auto;
     margin-right: 0;
+  }
+
+  #usrname: {
+    font-weight: normal;
   }
 `;

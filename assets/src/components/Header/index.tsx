@@ -29,11 +29,11 @@ export default function Header() {
 						<Link to="/create">Create post</Link>
 					</li>
 					<Auth>
-						<li>{context.username}</li>
+						<li id="usrname">{context.username}</li>
 						<li>
-							<button onClick={handleLogout}>
+							<Link to="" onClick={handleLogout}>
 								Log out
-							</button>
+							</Link>
 						</li>
 					</Auth>
 				</>
