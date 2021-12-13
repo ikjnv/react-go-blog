@@ -10,17 +10,34 @@ export default function Posts() {
 
 	const fetchPosts = useCallback(async () => {
 		setErrors({});
-		await fetch('/api/v1/posts',
-			{
-				headers: {
-					Authorization: `Bearer ${context.token}`
+		try {
+			const res = await fetch('/api/v1/posts',
+				{
+					headers: {
+						Authorization: `Bearer ${context.token}`
+					}
 				}
-			}
-		)
-			.then(res => res.json())
-			.then(res => setPosts(res.data))
-			.catch(err => setErrors({"error": err.message}));
+			);
 
+			const data = await res.json();
+			if(!res.ok) {
+				const errorTxt = 'Error while fetching posts';
+
+				if(!data.hasOwnProperty('error')) {
+					throw new Error(errorTxt);
+				};
+
+				if(typeof data['error'] === 'string') {
+					setErrors({'unknown': data['error']});
+				} else {
+					setErrors(data['error']);
+				}
+			} else {
+				setPosts(data.data);
+			}
+		} catch (err) {
+			setErrors({'error': err.message});
+		}
 	}, [context.token]);
 
 	useEffect(() => {
@@ -31,11 +48,11 @@ export default function Posts() {
 		setPosts(prevState => [...prevState, postData]);
 	};
 
-	const deleteHandler = (postId) => {
+	const deletePostHandler = (postId) => {
 		setPosts(prevState => prevState.filter((post) => post.ID !== postId));
 	};
 
-	const editHandler = () => {
+	const editPostHandler = () => {
 		fetchPosts();
 	};
 
@@ -44,8 +61,8 @@ export default function Posts() {
 		:
 		<PostList
 			posts={posts}
-			onDeletePost={deleteHandler}
-			onEditPost={editHandler}
+			onDeletePost={deletePostHandler}
+			onEditPost={editPostHandler}
 		/>;
 
 	const errorsContent = Object.keys(errors).length === 0 ? null : errors;

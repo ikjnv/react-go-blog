@@ -73,10 +73,10 @@ export default function AuthForm() {
 			<h4>{title}</h4>
 			<Form onSubmit={submitHandler}>
 				<div>
-					<input type="text" ref={usernameRef} />
+					<input type="text" ref={usernameRef} placeholder="Username" />
 				</div>
 				<div>
-					<input type="password" ref={passwordRef} />
+					<input type="password" ref={passwordRef} placeholder="Password" />
 				</div>
 				<div>
 					<button>{title}</button>

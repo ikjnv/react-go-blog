@@ -3,18 +3,18 @@ import AuthContext from '../../store/authContext';
 import Errors from '../Errors/Errors';
 import { FormBlock, Form } from "./styled"
 
-export default function PostForm(post) {
+export default function PostForm(props) {
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [errors, setErrors] = useState({});
 	const context = useContext(AuthContext);
 
 	const populateFields = useCallback(() => {
-		if(post) {
-			setTitle(post.Title);
-			setContent(post.Content);
+		if(props.post) {
+			setTitle(props.post.Title);
+			setContent(props.post.Content);
 		}
-	}, [post]);
+	}, [props.post]);
 
 	useEffect(() => {
 		populateFields();
@@ -33,14 +33,13 @@ export default function PostForm(post) {
 		setErrors({});
 
 		try {
-			const method = post.editPostHandler ? 'PUT' : 'POST';
+			const method = props.onEditPost ? 'PUT' : 'POST';
 			let body = {
 				Title: title,
 				Content: content
 			};
-
-			if(post.editPostHandler) {
-				body.ID = post.ID;
+			if(props.onEditPost) {
+				body.ID = props.post.ID;
 			};
 			const res = await fetch('/api/v1/posts',
 				{
@@ -48,7 +47,7 @@ export default function PostForm(post) {
 					body: JSON.stringify(body),
 					headers: {
 						'Content-Type': 'application/json',
-						Authorization: `Bearer ${context.token}`
+						'Authorization': `Bearer ${context.token}`
 					}
 				}
 			);
@@ -67,11 +66,11 @@ export default function PostForm(post) {
 			} else {
 				setTitle('');
 				setContent('');
-				if(post.addPostHandler) {
-					post.addPostHandler(data.data);
+				if(props.onAddPost) {
+					props.onAddPost(data.data);
 				}
-				if(post.editPostHandler) {
-					post.editPostHandler(data.data);
+				if(props.onEditPost) {
+					props.onEditPost(data.data);
 				}
 			}
 		} catch (err) {
@@ -80,16 +79,16 @@ export default function PostForm(post) {
 	}
 
 	const errorContent = Object.keys(errors).length === 0 ? null : Errors(errors);
-	const submitBtn = post.editPostHandler ? 'Edit post' : 'Create post';
+	const submitBtn = props.onEditPost ? 'Edit post' : 'Create post';
 
 	return (
 		<FormBlock>
-			<h4>Create post</h4>
 			<Form onSubmit={submitHandler}>
 				<div>
 					<input
 						type="text"
 						placeholder="Post title"
+						required
 						value={title}
 						onChange={titleChangeHandler}
 					/>
@@ -98,12 +97,15 @@ export default function PostForm(post) {
 					<textarea
 						type="text"
 						rows={5}
+						required
 						placeholder="Content"
 						value={content}
 						onChange={contentChangeHandler}
 					/>
 				</div>
-				<button>{submitBtn}</button>
+				<div>
+					<button>{submitBtn}</button>
+				</div>
 			</Form>
 			{errorContent}
 		</FormBlock> 

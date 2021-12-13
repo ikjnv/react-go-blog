@@ -8,8 +8,6 @@ export default function Header() {
 	const navigate = useNavigate();
 	const context = useContext(AuthContext);
 
-	console.log('header context', context);
-
 	const handleLogout = () => {
 		context.logout();
 		navigate('/', { replace: true });
@@ -24,9 +22,6 @@ export default function Header() {
 				<>
 					<li>
 						<Link to="/posts">Posts</Link>
-					</li>
-					<li>
-						<Link to="/create">Create post</Link>
 					</li>
 					<Auth>
 						<li id="usrname">{context.username}</li>

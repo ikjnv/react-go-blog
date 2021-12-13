@@ -8,13 +8,7 @@ import (
 )
 
 func SignUp(ctx *gin.Context) {
-	user := new(store.User)
-
-	if err := ctx.Bind(user); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
+	user := ctx.MustGet(gin.BindKey).(*store.User)
 	if err := store.AddUser(user); err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}

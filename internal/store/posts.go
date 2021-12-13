@@ -27,6 +27,7 @@ func AddPost(user *User, post *Post) error {
 
 func FetchUserPosts(user *User) error {
 	err := db.Model(user).
+		WherePK().
 		Relation("Posts", func(q *pg.Query) (*pg.Query, error) {
 			return q.Order("id ASC"), nil
 		}).
