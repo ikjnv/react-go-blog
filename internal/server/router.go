@@ -34,6 +34,7 @@ func SetRouter() *gin.Engine {
 	{
 		api.POST("/signup", SignUp)
 		api.POST("/signin", SignIn)
+		api.GET("/posts/all", fetchAll)
 	}
 
 	authorized := api.Group("/")

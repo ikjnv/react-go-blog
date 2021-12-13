@@ -7,6 +7,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+type Posts = []Post
+
 type Post struct {
 	ID         int
 	Title      string `binding:"required,min=3,max=50"`
@@ -23,6 +25,15 @@ func AddPost(user *User, post *Post) error {
 		log.Error().Err(err).Msg("Error inserting new post")
 	}
 	return err
+}
+
+func FetchAllPosts() (*Posts, error) {
+	posts := new(Posts)
+
+	if err := db.Model(posts).Select(); err != nil {
+		return nil, err
+	}
+	return posts, nil
 }
 
 func FetchUserPosts(user *User) error {
