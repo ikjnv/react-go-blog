@@ -36,6 +36,7 @@ func SetRouter() *gin.Engine {
 		api.POST("/signin", SignIn)
 		api.GET("/posts", fetchAll)
 		api.POST("/upload", fileUpload)
+		api.GET("/posts/:id", getPost)
 	}
 
 	authorized := api.Group("/")

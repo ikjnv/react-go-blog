@@ -129,6 +129,27 @@ func updatePost(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"msg": "Post updated successfully", "data": jsonPost})
 }
 
+func getPost(ctx *gin.Context) {
+	paramID := ctx.Param("id")
+	id, err := strconv.Atoi(paramID)
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Not valid ID"})
+		return
+	}
+
+	post, err := store.FetchPost(id)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg":  "Success",
+		"data": post,
+	})
+}
+
 func deletePost(ctx *gin.Context) {
 	paramID := ctx.Param("id")
 	id, err := strconv.Atoi(paramID)
