@@ -50,27 +50,6 @@ func indexPosts(ctx *gin.Context) {
 	})
 }
 
-// fetch all posts
-func fetchAll(ctx *gin.Context) {
-	posts := new(store.Posts)
-
-	if err := ctx.Bind(posts); err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	posts, err := store.FetchAllPosts()
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"Error while fetching all posts\nError:": err.Error()})
-		return
-	}
-
-	ctx.JSON(http.StatusOK, gin.H{
-		"msg":   "Fetched all posts",
-		"posts": posts,
-	})
-}
-
 func updatePost(ctx *gin.Context) {
 	jsonPost := new(store.Post)
 
