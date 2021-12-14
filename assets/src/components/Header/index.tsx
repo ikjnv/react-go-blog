@@ -18,10 +18,13 @@ export default function Header() {
 			<li>
 				<Link to="/">Home</Link>
 			</li>
+			<li>
+				<Link to="/posts">Posts</Link>
+			</li>
 			{ context.loggedIn ? (
 				<>
 					<li>
-						<Link to="/posts">Posts</Link>
+						<Link to="/user/posts">My Posts</Link>
 					</li>
 					<Auth>
 						<li id="usrname">{context.username}</li>

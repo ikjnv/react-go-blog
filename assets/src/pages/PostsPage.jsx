@@ -1,7 +1,7 @@
-import Posts from '../components/Post/Posts';
+import AllPosts from "../components/Post/AllPosts";
 
 export default function PostsPage() {
 	return (
-		<Posts />
+		<AllPosts />
 	);
 };
