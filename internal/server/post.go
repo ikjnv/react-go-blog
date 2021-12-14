@@ -3,6 +3,7 @@ package server
 import (
 	"ikjnv/react-go-blog/internal/store"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -47,6 +48,50 @@ func indexPosts(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"msg":  "Posts fetched successfully",
 		"data": user.Posts,
+	})
+}
+
+// file upload
+func fileUpload(ctx *gin.Context) {
+	file, err := ctx.FormFile("file")
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error while uploading file": err.Error()})
+		return
+	}
+
+	dir, err := os.Getwd()
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := ctx.SaveUploadedFile(file, dir+"/"+file.Filename); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "Unable to save the file"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"message": "The file has been successfully saved!"})
+}
+
+// fetch all posts
+func fetchAll(ctx *gin.Context) {
+	posts := new(store.Posts)
+
+	if err := ctx.Bind(posts); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	posts, err := store.FetchAllPosts()
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"Error while fetching all posts\nError:": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"msg":   "Fetched all posts",
+		"posts": posts,
 	})
 }
 
