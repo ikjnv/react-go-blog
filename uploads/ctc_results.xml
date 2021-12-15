@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ctc_xml_report>
+
+	<header_info>
+		<ctcpost_version>9.1.1</ctcpost_version>
+		<copyright>Copyright (c) 1993-2013 Testwell Oy</copyright>
+		<copyright>Copyright (c) 2013-2020 Verifysoft Technology GmbH</copyright>
+		<license_notes>
+		</license_notes>
+		<symbolfiles>
+			<symbolfile>
+				<name>MON.sym</name>
+				<modified>Wed Oct 20 15:09:34 2021</modified>
+			</symbolfile>
+		</symbolfiles>
+		<datafiles>
+			<datafile>
+				<name>MON.dat</name>
+				<modified>Wed Oct 20 15:19:32 2021</modified>
+			</datafile>
+		</datafiles>
+		<chosen_source_files>
+		</chosen_source_files>
+		<unchosen_source_files>
+		</unchosen_source_files>
+		<report_generated>Thu Dec  2 13:32:03 2021</report_generated>
+		<requested_coverage_view>As instrumented</requested_coverage_view>
+		<ctcpost_options>MON.sym MON.dat -x results.xml</ctcpost_options>
+		<execution_cost_function>clock</execution_cost_function>
+		<execution_cost_type>Clock ticks</execution_cost_type>
+		<execution_cost_scaling>1</execution_cost_scaling>
+	</header_info>
+
+	<ctcpost_notices>
+	</ctcpost_notices>
+
+	<file name="/home/parallels/ctc911/lib/ctc/examples/prime/prime.c">
+		<file_type>source</file_type>
+		<instrumentation_mode>multicondition</instrumentation_mode>
+		<instrumentation_timestamp>Wed Oct 20 15:09:34 2021</instrumentation_timestamp>
+		<instrumentation_fingerprint>0x50c47cd1</instrumentation_fingerprint>
+		<sym_rewrite_count>0</sym_rewrite_count>
+		<sym_update_count>0</sym_update_count>
+		<data_rewrite_count>0</data_rewrite_count>
+		<data_update_count>0</data_update_count>
+		<function name="main">
+			<parameters>( void )</parameters>
+			<defined_at_line>8</defined_at_line>
+			<call_count>1</call_count>
+			<total_execution_cost></total_execution_cost>
+			<average_execution_cost></average_execution_cost>
+			<max_execution_cost></max_execution_cost>
+			<body>
+				<probe type="function" count1="1"
+				   line="8" sc_count="0" nesting="0" descr="FUNCTION main()" />
+				<probe type="while" count1="5" count2="1"
+				   line="12" sc_count="1" nesting="1" descr="while (( prime_candidate = io_ask ( ) ) &gt; 0)" />
+				<probe type="if" count1="4" count2="1"
+				   line="14" sc_count="1" nesting="2" descr="if (is_prime ( prime_candidate ))" />
+				<probe type="block_end"
+				   line="15" sc_count="2" nesting="2" exepassed="1" descr="}" />
+				<probe type="else"
+				   line="16" sc_count="2" nesting="2" descr="else" />
+				<probe type="block_end"
+				   line="17" sc_count="3" nesting="2" exepassed="1" descr="}" />
+				<probe type="block_end"
+				   line="18" sc_count="3" nesting="1" exepassed="1" descr="}" />
+				<probe type="return" count1="1"
+				   line="19" sc_count="4" nesting="1" descr="return 0" />
+				<probe type="function_end_nr"
+				   line="20" sc_count="4" nesting="0" descr="}" />
+			</body>
+			<function_summary>
+				<ter>100</ter>
+				<hits>6</hits>
+				<all>6</all>
+				<statement_ter>100</statement_ter>
+				<statement_hits>6</statement_hits>
+				<statement_all>6</statement_all>
+				<statement_available>yes</statement_available>
+			</function_summary>
+		</function>
+		<file_summary>
+			<functions>1</functions>
+			<lines>20</lines>
+			<ter>100</ter>
+			<hits>6</hits>
+			<all>6</all>
+			<statement_ter>100</statement_ter>
+			<statement_hits>6</statement_hits>
+			<statement_all>6</statement_all>
+			<statement_na_functions>0</statement_na_functions>
+		</file_summary>
+	</file>
+
+	<file name="/home/parallels/ctc911/lib/ctc/examples/prime/io.c">
+		<file_type>source</file_type>
+		<instrumentation_mode>multicondition</instrumentation_mode>
+		<instrumentation_timestamp>Wed Oct 20 15:09:34 2021</instrumentation_timestamp>
+		<instrumentation_fingerprint>0xb3cff576</instrumentation_fingerprint>
+		<sym_rewrite_count>0</sym_rewrite_count>
+		<sym_update_count>0</sym_update_count>
+		<data_rewrite_count>0</data_rewrite_count>
+		<data_update_count>0</data_update_count>
+		<function name="io_ask">
+			<parameters>( )</parameters>
+			<defined_at_line>5</defined_at_line>
+			<call_count>6</call_count>
+			<total_execution_cost></total_execution_cost>
+			<average_execution_cost></average_execution_cost>
+			<max_execution_cost></max_execution_cost>
+			<body>
+				<probe type="function" count1="6"
+				   line="5" sc_count="0" nesting="0" descr="FUNCTION io_ask()" />
+				<probe type="if" count1="0" count2="6" alarmed="1"
+				   line="11" sc_count="3" nesting="1" descr="if (( amount = scanf ( &quot;%u&quot; , &amp; val ) ) &lt;= 0)" />
+				<probe type="block_end"
+				   line="13" sc_count="4" nesting="1" exepassed="1" descr="}" />
+				<probe type="return" count1="6"
+				   line="14" sc_count="5" nesting="1" descr="return val" />
+				<probe type="function_end_nr"
+				   line="15" sc_count="5" nesting="0" descr="}" />
+			</body>
+			<function_summary>
+				<ter>75</ter>
+				<hits>3</hits>
+				<all>4</all>
+				<statement_ter>83</statement_ter>
+				<statement_hits>5</statement_hits>
+				<statement_all>6</statement_all>
+				<statement_available>yes</statement_available>
+			</function_summary>
+		</function>
+		<function name="io_report">
+			<parameters>( unsigned val , char * str )</parameters>
+			<defined_at_line>18</defined_at_line>
+			<call_count>5</call_count>
+			<total_execution_cost></total_execution_cost>
+			<average_execution_cost></average_execution_cost>
+			<max_execution_cost></max_execution_cost>
+			<body>
+				<probe type="function" count1="5"
+				   line="18" sc_count="0" nesting="0" descr="FUNCTION io_report()" />
+				<probe type="function_end" count1="5"
+				   line="21" sc_count="1" nesting="0" descr="}" />
+			</body>
+			<function_summary>
+				<ter>100</ter>
+				<hits>2</hits>
+				<all>2</all>
+				<statement_ter>100</statement_ter>
+				<statement_hits>1</statement_hits>
+				<statement_all>1</statement_all>
+				<statement_available>yes</statement_available>
+			</function_summary>
+		</function>
+		<file_summary>
+			<functions>2</functions>
+			<lines>21</lines>
+			<ter>83</ter>
+			<hits>5</hits>
+			<all>6</all>
+			<statement_ter>85</statement_ter>
+			<statement_hits>6</statement_hits>
+			<statement_all>7</statement_all>
+			<statement_na_functions>0</statement_na_functions>
+		</file_summary>
+	</file>
+
+	<file name="/home/parallels/ctc911/lib/ctc/examples/prime/calc.c">
+		<file_type>source</file_type>
+		<instrumentation_mode>multicondition</instrumentation_mode>
+		<instrumentation_timestamp>Wed Oct 20 15:09:34 2021</instrumentation_timestamp>
+		<instrumentation_fingerprint>0x24c1270d</instrumentation_fingerprint>
+		<sym_rewrite_count>0</sym_rewrite_count>
+		<sym_update_count>0</sym_update_count>
+		<data_rewrite_count>0</data_rewrite_count>
+		<data_update_count>0</data_update_count>
+		<function name="is_prime">
+			<parameters>( unsigned val )</parameters>
+			<defined_at_line>4</defined_at_line>
+			<call_count>5</call_count>
+			<total_execution_cost></total_execution_cost>
+			<average_execution_cost></average_execution_cost>
+			<max_execution_cost></max_execution_cost>
+			<body>
+				<probe type="function" count1="5"
+				   line="4" sc_count="0" nesting="0" descr="FUNCTION is_prime()" />
+				<probe type="if" count1="3" count2="2"
+				   line="8" sc_count="1" nesting="1" descr="if (val == 1 || val == 2 || val == 3)" />
+				<probe type="multi_cond_t" count1="1"
+				   line="8" sc_count="1" nesting="1" eval_no="1" descr="T || _ || _" />
+				<probe type="multi_cond_t" count1="1"
+				   line="8" sc_count="1" nesting="1" eval_no="2" descr="F || T || _" />
+				<probe type="multi_cond_t" count1="1"
+				   line="8" sc_count="1" nesting="1" eval_no="3" descr="F || F || T" />
+				<probe type="multi_cond_f" count2="2"
+				   line="8" sc_count="1" nesting="1" eval_no="4" descr="F || F || F" />
+				<probe type="return" count1="3"
+				   line="9" sc_count="2" nesting="2" descr="return 1" />
+				<probe type="block_end"
+				   line="9" sc_count="2" nesting="1" exepassed="1" descr="}" />
+				<probe type="if" count1="1" count2="1"
+				   line="10" sc_count="2" nesting="1" descr="if (val % 2 == 0)" />
+				<probe type="return" count1="1"
+				   line="11" sc_count="3" nesting="2" descr="return 0" />
+				<probe type="block_end"
+				   line="11" sc_count="3" nesting="1" exepassed="1" descr="}" />
+				<probe type="for" count1="0" count2="1" alarmed="1"
+				   line="12" sc_count="5" nesting="1" descr="for (;divisor &lt; val / 2;)" />
+				<probe type="if" count1="0" count2="0" alarmed="1"
+				   line="14" sc_count="5" nesting="2" descr="if (val % divisor == 0)" />
+				<probe type="return" count1="0" alarmed="1"
+				   line="15" sc_count="6" nesting="3" descr="return 0" />
+				<probe type="block_end"
+				   line="15" sc_count="6" nesting="2" exepassed="0" descr="}" />
+				<probe type="block_end"
+				   line="16" sc_count="6" nesting="1" exepassed="1" descr="}" />
+				<probe type="return" count1="1"
+				   line="17" sc_count="7" nesting="1" descr="return 1" />
+				<probe type="function_end_nr"
+				   line="18" sc_count="7" nesting="0" descr="}" />
+			</body>
+			<function_summary>
+				<ter>76</ter>
+				<hits>13</hits>
+				<all>17</all>
+				<statement_ter>81</statement_ter>
+				<statement_hits>9</statement_hits>
+				<statement_all>11</statement_all>
+				<statement_available>yes</statement_available>
+			</function_summary>
+		</function>
+		<file_summary>
+			<functions>1</functions>
+			<lines>18</lines>
+			<ter>76</ter>
+			<hits>13</hits>
+			<all>17</all>
+			<statement_ter>81</statement_ter>
+			<statement_hits>9</statement_hits>
+			<statement_all>11</statement_all>
+			<statement_na_functions>0</statement_na_functions>
+		</file_summary>
+	</file>
+
+	<overall_summary>
+		<shown_coverage_views>multicondition</shown_coverage_views>
+		<files>3</files>
+		<headers>0</headers>
+		<functions>4</functions>
+		<lines>59</lines>
+		<ter>82</ter>
+		<hits>24</hits>
+		<all>29</all>
+		<statement_ter>87</statement_ter>
+		<statement_hits>21</statement_hits>
+		<statement_all>24</statement_all>
+		<statement_na_functions>0</statement_na_functions>
+	</overall_summary>
+
+</ctc_xml_report>

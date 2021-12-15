@@ -61,7 +61,6 @@ export default function AuthForm() {
 		} catch (error) {
 			setErrors({"error": error.message});
 		}
-
 	}
 
 	const title = loggingIn ? 'Sign in' : 'Sign up';

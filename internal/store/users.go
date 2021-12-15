@@ -39,6 +39,7 @@ func AddUser(user *User) error {
 	toHash := append([]byte(user.Password), salt...)
 	hashedPassword, err := bcrypt.GenerateFromPassword(toHash, bcrypt.DefaultCost)
 	if err != nil {
+		log.Error().Err(err).Msg("Error hashing password")
 		return err
 	}
 
@@ -47,6 +48,7 @@ func AddUser(user *User) error {
 
 	_, err = db.Model(user).Returning("*").Insert()
 	if err != nil {
+		log.Error().Err(err).Msg("Error inserting new user")
 		return err
 	}
 	return err
