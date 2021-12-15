@@ -49,9 +49,9 @@ func AddUser(user *User) error {
 	_, err = db.Model(user).Returning("*").Insert()
 	if err != nil {
 		log.Error().Err(err).Msg("Error inserting new user")
-		return err
+		return customDbError(err)
 	}
-	return err
+	return nil
 }
 
 func Authenticate(username, password string) (*User, error) {
