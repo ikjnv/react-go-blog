@@ -26,9 +26,10 @@ type Config struct {
 	DbUser     string
 	DbPassword string
 	JwtSecret  string
+	Env        string
 }
 
-func NewConfig() Config {
+func NewConfig(env string) Config {
 	host, ok := os.LookupEnv(hostKey)
 	if !ok || host == "" {
 		log.Panic(hostKey)
@@ -82,5 +83,12 @@ func NewConfig() Config {
 		DbUser:     dbUser,
 		DbPassword: dbPassword,
 		JwtSecret:  jwtSecret,
+		Env:        env,
 	}
+}
+
+func NewTestConfig() Config {
+	testConfig := NewConfig("dev")
+	testConfig.DbName = testConfig.DbName + "_test"
+	return testConfig
 }

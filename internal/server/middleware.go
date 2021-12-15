@@ -102,11 +102,11 @@ func customErrors(c *gin.Context) {
 func customValidationError(err validator.FieldError) string {
 	switch err.Tag() {
 	case "required":
-		return fmt.Sprintf("%s is required", err.Field())
+		return fmt.Sprintf("%s is required.", err.Field())
 	case "min":
-		return fmt.Sprintf("%s must be longer than or equal to %s characters", err.Field(), err.Param())
+		return fmt.Sprintf("%s must be longer than or equal to %s characters.", err.Field(), err.Param())
 	case "max":
-		return fmt.Sprintf("%s can NOT be longer than %s characters", err.Field(), err.Param())
+		return fmt.Sprintf("%s can NOT be longer than %s characters.", err.Field(), err.Param())
 	default:
 		return err.Error()
 	}

@@ -3,9 +3,12 @@ package store
 import (
 	"errors"
 	"fmt"
+	"ikjnv/react-go-blog/internal/conf"
 	"log"
 	"regexp"
 	"strings"
+
+	"ikjnv/react-go-blog/internal/database"
 
 	"github.com/go-pg/pg/v10"
 )
@@ -14,7 +17,7 @@ var db *pg.DB
 
 func SetDBConnection(dbOpts *pg.Options) {
 	if dbOpts == nil {
-		log.Panicln("DB options can't be nil")
+		log.Panic("DB options can't be nil")
 	} else {
 		db = pg.Connect(dbOpts)
 	}
@@ -50,4 +53,17 @@ func extractColumnName(text string) string {
 		return strings.Title(reg.FindStringSubmatch(text)[1])
 	}
 	return "unknown"
+}
+
+func ResetTestDatabase() {
+	SetDBConnection(database.NewDBOptions(conf.NewTestConfig()))
+
+	tables := []string{"users", "posts"}
+	for _, table := range tables {
+		_, err := db.Exec(fmt.Sprintf("DELETE FROM %s;", table))
+		if err != nil {
+			log.Panic("Error clearing test database")
+		}
+		_, err = db.Exec(fmt.Sprintf("ALTER SEQUENCE %s_id_seq RESTART;", table))
+	}
 }

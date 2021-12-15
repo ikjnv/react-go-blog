@@ -20,7 +20,7 @@ const InternalServerError = "Something went wrong"
 func Start(cfg conf.Config) {
 	jwtSetup(cfg)
 	store.SetDBConnection(database.NewDBOptions(cfg))
-	router := SetRouter()
+	router := SetRouter(cfg)
 
 	server := &http.Server{
 		Addr:    cfg.Host + ":" + cfg.Port,

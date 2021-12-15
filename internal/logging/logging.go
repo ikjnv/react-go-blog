@@ -29,7 +29,7 @@ func SetGinLogToFile() {
 	gin.DefaultWriter = io.MultiWriter(logFile)
 }
 
-func CongigureLogger(env string) {
+func ConfigureLogger(env string) {
 	zerolog.SetGlobalLevel(zerolog.DebugLevel)
 	switch env {
 	case "dev":
