@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	logsDir = "logs"
-	logName = "gin_production.log"
+	logsDir = "../logs"
+	logName = "keep.log"
 )
 
 var logFilePath = filepath.Join(logsDir, logName)
