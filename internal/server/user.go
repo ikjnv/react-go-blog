@@ -15,8 +15,9 @@ func SignUp(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"msg": "Signed up successfully",
-		"jwt": generateJWT(user),
+		"msg":		"Signed up successfully",
+		"username":	user.Username,
+		"jwt":		generateJWT(user),
 	})
 }
 
