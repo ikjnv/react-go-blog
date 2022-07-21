@@ -8,29 +8,32 @@ export default function AllPosts() {
 
 	const fetchPosts = useCallback(
 		async () => {
-		try {
-			const res = await fetch('/api/v1/posts');
-			const data = await res.json();
+			try {
+				const res = await fetch('/api/v1/posts');
+				const data = await res.json();
 
-			if(!res.ok) {
-				let errorTxt = "Error while fetching all posts";
+				if(!res.ok) {
+					let errorTxt = "Error while fetching all posts";
 
-				if(!data.hasOwnProperty('error')) {
-					throw new Error(errorTxt);
-				}
+					if(!data.hasOwnProperty('error')) {
+						throw new Error(errorTxt);
+					}
 
-				if(typeof data['error'] === "string") {
-					setErrors({"unknown": data['error']});
+					if(typeof data['error'] === "string") {
+						setErrors({"unknown": data['error']});
+					} else {
+						setErrors(data['error']);
+					}
+				} else if(data.posts == null) {
+					setErrors({});
 				} else {
-					setErrors(data['error']);
+					setErrors({});
+					setPosts(data.posts);
 				}
-			} else {
-				setErrors({});
-				setPosts(data.posts);
+			} catch (err) {
+				setErrors({"error": err.message});
 			}
-		} catch (err) {
-			setErrors({"error": err.message});
-		}}, 
+		}, 
 		[]
 	);
 
@@ -53,8 +56,9 @@ export default function AllPosts() {
 			posts={posts}
 			onDeletePost={deletePostHandler}
 			onEditPost={editPostHandler}
-		/>
-		const errorContent = Object.keys(errors).length === 0 ? null : Errors(errors);
+		/>;
+
+	const errorContent = Object.keys(errors).length === 0 ? null : Errors(errors);
 
 	return (
 		<section>
